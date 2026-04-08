@@ -107,31 +107,53 @@ button.primary:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
+}
+
+.time-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
 }
 
-.input-group input {
+.time-field input {
     background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: var(--glass-bg);
     color: var(--text-color);
-    font-size: 1.2rem;
-    width: 60px;
+    font-size: 3rem;
+    font-weight: 200;
+    width: 90px;
+    height: 100px;
     text-align: center;
-    padding: 0.3rem;
     transition: var(--transition);
     outline: none;
+    backdrop-filter: blur(10px);
 }
 
-.input-group input:focus {
-    border-color: var(--accent-color);
+.time-field input:focus {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
 }
 
-.input-group span {
+.time-field span {
     font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.5;
+    letter-spacing: 2px;
+    opacity: 0.3;
+    font-weight: 400;
+}
+
+/* Hide number spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 /* Animations */

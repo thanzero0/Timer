@@ -14,13 +14,21 @@
     
     <div class="container">
         <div class="input-group" id="timer-inputs">
-            <input type="number" id="minutes" placeholder="00" min="0" max="999">
-            <span>min</span>
-            <input type="number" id="seconds" placeholder="00" min="0" max="59">
-            <span>sec</span>
+            <div class="time-field">
+                <input type="number" id="hours" placeholder="00" min="0" max="99">
+                <span>h</span>
+            </div>
+            <div class="time-field">
+                <input type="number" id="minutes" placeholder="00" min="0" max="59">
+                <span>m</span>
+            </div>
+            <div class="time-field">
+                <input type="number" id="seconds" placeholder="00" min="0" max="59">
+                <span>s</span>
+            </div>
         </div>
 
-        <div class="timer-display" id="display">00:00</div>
+        <div class="timer-display" id="display">00:00:00</div>
 
         <div class="controls">
             <button id="start-btn" class="primary">Start</button>

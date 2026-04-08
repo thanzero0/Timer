@@ -7,22 +7,30 @@ const display = document.getElementById('display');
 const startBtn = document.getElementById('start-btn');
 const resetBtn = document.getElementById('reset-btn');
 const inputGroup = document.getElementById('timer-inputs');
+const hrInput = document.getElementById('hours');
 const minInput = document.getElementById('minutes');
 const secInput = document.getElementById('seconds');
 const container = document.querySelector('.container');
 
-function updateDisplay(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+function updateDisplay(totalSecs) {
+    const hrs = Math.floor(totalSecs / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+    
+    if (hrs > 0) {
+        display.textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
 }
 
 function startTimer() {
     if (timerId === null) {
         // Initial start
+        const hrs = parseInt(hrInput.value) || 0;
         const mins = parseInt(minInput.value) || 0;
         const secs = parseInt(secInput.value) || 0;
-        totalSeconds = (mins * 60) + secs;
+        totalSeconds = (hrs * 3600) + (mins * 60) + secs;
 
         if (totalSeconds <= 0) return;
 
@@ -89,6 +97,7 @@ function reset() {
     display.classList.remove('active');
     container.classList.remove('running');
     
+    hrInput.value = '';
     minInput.value = '';
     secInput.value = '';
     updateDisplay(0);
@@ -101,21 +110,21 @@ startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', reset);
 
 // Handle Enter key for starting
-[minInput, secInput].forEach(input => {
+// Handle Enter key for starting
+[hrInput, minInput, secInput].forEach(input => {
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') startTimer();
     });
 });
 
 // Update display when inputting
-minInput.addEventListener('input', () => {
+function handleInputUpdate() {
+    const hrs = parseInt(hrInput.value) || 0;
     const mins = parseInt(minInput.value) || 0;
     const secs = parseInt(secInput.value) || 0;
-    updateDisplay((mins * 60) + secs);
-});
+    updateDisplay((hrs * 3600) + (mins * 60) + secs);
+}
 
-secInput.addEventListener('input', () => {
-    const mins = parseInt(minInput.value) || 0;
-    const secs = parseInt(secInput.value) || 0;
-    updateDisplay((mins * 60) + secs);
-});
+hrInput.addEventListener('input', handleInputUpdate);
+minInput.addEventListener('input', handleInputUpdate);
+secInput.addEventListener('input', handleInputUpdate);
