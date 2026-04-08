@@ -1,152 +1,151 @@
 :root {
-    --bg-color: #0d0d0d;
-    --text-color: #f5f5f5;
+    --bg-color: #050505;
+    --text-color: #ffffff;
     --accent-color: #ffffff;
-    --secondary-bg: #1a1a1a;
-    --border-color: #333333;
     --glass-bg: rgba(255, 255, 255, 0.03);
-    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    padding: 20px;
+}
+
+.glow {
+    position: fixed;
+    width: 60vmax;
+    height: 60vmax;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .container {
     text-align: center;
     width: 100%;
-    max-width: 400px;
-    padding: 2rem;
+    max-width: 600px;
     position: relative;
     z-index: 1;
-}
-
-/* Background aesthetic */
-.glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-.timer-display {
-    font-size: 6rem;
-    font-weight: 200;
-    letter-spacing: -2px;
-    margin-bottom: 2rem;
-    font-variant-numeric: tabular-nums;
-    transition: var(--transition);
-}
-
-.timer-display.active {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.controls {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-}
-
-button {
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 0.8rem 1.5rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition);
-    outline: none;
-    backdrop-filter: blur(10px);
-}
-
-button:hover {
-    background: var(--accent-color);
-    color: var(--bg-color);
-    border-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-button.primary {
-    background: var(--text-color);
-    color: var(--bg-color);
-    border-color: var(--text-color);
-}
-
-button.primary:hover {
-    filter: brightness(0.9);
 }
 
 .input-group {
-    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: clamp(10px, 4vw, 30px);
+    margin-bottom: 3rem;
+    transition: var(--transition);
 }
 
 .time-field {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .time-field input {
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 16px;
     background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
     color: var(--text-color);
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     font-weight: 200;
-    width: 90px;
-    height: 100px;
+    width: clamp(80px, 20vw, 130px);
+    height: clamp(100px, 25vw, 160px);
     text-align: center;
     transition: var(--transition);
     outline: none;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    cursor: ns-resize; /* Suggests vertical scrolling */
 }
 
 .time-field input:focus {
-    border-color: rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .time-field span {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     opacity: 0.3;
-    font-weight: 400;
+    font-weight: 500;
 }
 
-/* Hide number spinners */
+.timer-display {
+    display: none;
+    font-size: clamp(4rem, 15vw, 10rem);
+    font-weight: 100;
+    letter-spacing: -4px;
+    margin-bottom: 3rem;
+    font-variant-numeric: tabular-nums;
+    transition: var(--transition);
+}
+
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+button {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
+    padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 3rem);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+button:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+    transform: translateY(-2px);
+}
+
+button.primary {
+    background: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+    box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
+
+button.primary:hover {
+    box-shadow: 0 15px 30px rgba(255,255,255,0.2);
+}
+
+/* Scroll handling */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -156,13 +155,31 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-/* Animations */
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.02); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
+/* States */
+.running .input-group {
+    display: none;
 }
 
 .running .timer-display {
-    animation: pulse 2s infinite ease-in-out;
+    display: block;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.running .timer-display.active {
+    animation: pulse 1.5s infinite ease-in-out;
+    text-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+    .input-group {
+        gap: 10px;
+    }
+    .time-field input {
+        border-radius: 16px;
+    }
 }

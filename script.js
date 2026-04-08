@@ -17,16 +17,11 @@ function updateDisplay(totalSecs) {
     const mins = Math.floor((totalSecs % 3600) / 60);
     const secs = totalSecs % 60;
     
-    if (hrs > 0) {
-        display.textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    } else {
-        display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
+    display.textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 function startTimer() {
     if (timerId === null) {
-        // Initial start
         const hrs = parseInt(hrInput.value) || 0;
         const mins = parseInt(minInput.value) || 0;
         const secs = parseInt(secInput.value) || 0;
@@ -35,19 +30,16 @@ function startTimer() {
         if (totalSeconds <= 0) return;
 
         timeLeft = totalSeconds;
-        inputGroup.style.display = 'none';
-        display.style.fontSize = '8rem';
         container.classList.add('running');
+        display.classList.add('active');
         startBtn.textContent = 'Pause';
         
         runCountdown();
     } else if (isPaused) {
-        // Resume
         isPaused = false;
         startBtn.textContent = 'Pause';
         runCountdown();
     } else {
-        // Pause
         isPaused = true;
         clearInterval(timerId);
         timerId = null;
@@ -72,19 +64,7 @@ function runCountdown() {
 
 function completeTimer() {
     container.classList.remove('running');
-    display.classList.add('active');
     startBtn.style.display = 'none';
-    
-    // Simple visual ping
-    let flash = 5;
-    const interval = setInterval(() => {
-        display.style.opacity = display.style.opacity === '0' ? '1' : '0';
-        flash--;
-        if (flash < 0) {
-            clearInterval(interval);
-            display.style.opacity = '1';
-        }
-    }, 300);
 }
 
 function reset() {
@@ -92,10 +72,8 @@ function reset() {
     timerId = null;
     isPaused = false;
     
-    inputGroup.style.display = 'flex';
-    display.style.fontSize = '6rem';
-    display.classList.remove('active');
     container.classList.remove('running');
+    display.classList.remove('active');
     
     hrInput.value = '';
     minInput.value = '';
@@ -106,18 +84,34 @@ function reset() {
     startBtn.style.display = 'block';
 }
 
-startBtn.addEventListener('click', startTimer);
-resetBtn.addEventListener('click', reset);
+// Scroll Picker Logic & Limits
+function handleWheel(e) {
+    e.preventDefault();
+    const input = e.target;
+    const step = e.deltaY > 0 ? -1 : 1;
+    let val = parseInt(input.value || 0) + step;
+    
+    const max = input.id === 'hours' ? 99 : 59;
+    
+    if (val > max) val = 0;
+    if (val < 0) val = max;
+    
+    input.value = val.toString().padStart(2, '0');
+    handleInputUpdate();
+}
 
-// Handle Enter key for starting
-// Handle Enter key for starting
-[hrInput, minInput, secInput].forEach(input => {
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') startTimer();
-    });
-});
+function validateInput(e) {
+    const input = e.target;
+    const max = input.id === 'hours' ? 99 : 59;
+    let val = parseInt(input.value);
+    
+    if (val > max) input.value = max;
+    if (val < 0) input.value = 0;
+    if (input.value.length > 2) input.value = input.value.slice(0, 2);
+    
+    handleInputUpdate();
+}
 
-// Update display when inputting
 function handleInputUpdate() {
     const hrs = parseInt(hrInput.value) || 0;
     const mins = parseInt(minInput.value) || 0;
@@ -125,6 +119,16 @@ function handleInputUpdate() {
     updateDisplay((hrs * 3600) + (mins * 60) + secs);
 }
 
-hrInput.addEventListener('input', handleInputUpdate);
-minInput.addEventListener('input', handleInputUpdate);
-secInput.addEventListener('input', handleInputUpdate);
+[hrInput, minInput, secInput].forEach(input => {
+    input.addEventListener('wheel', handleWheel, { passive: false });
+    input.addEventListener('input', validateInput);
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') startTimer();
+    });
+});
+
+startBtn.addEventListener('click', startTimer);
+resetBtn.addEventListener('click', reset);
+
+// Initial display
+updateDisplay(0);
