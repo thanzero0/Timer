@@ -1,14 +1,16 @@
-# Minimalist Timer
+# Smart Timer ⏱️
 
-A sleek, simple, and modern countdown timer built with pure HTML, CSS, and JavaScript.
+A customizable timer and countdown utility for tracking time efficiently. Whether it's for pomodoro sessions, workouts, or general tasks, this timer is built to handle it.
 
-## Features
-- **Clean Aesthetic**: Dark mode by default with a 'Stone' inspired palette.
-- **Responsive Design**: Works beautifully on most screens.
-- **Dynamic Feedback**: Subtle pulse animation while running and flash notification when finished.
-- **Keyboard Shortcut**: Press `Enter` to start your timer immediately from the input focus.
+## 🌟 Features
+- Start, stop, and reset functionality
+- Clean, distraction-free interface
+- Responsive design for all devices
 
-## How to use
-1. Enter the desired minutes and seconds.
-2. Click **Start** or press **Enter**.
-3. Use **Pause** to stop temporarily and **Reset** to return to settings.
+## 🛠️ Technologies Used
+- HTML5
+- CSS3
+- Vanilla JavaScript
+
+## 🚀 Getting Started
+Launch the timer by opening `index.html` in any modern web browser.
