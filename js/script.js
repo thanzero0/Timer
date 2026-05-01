@@ -21,7 +21,8 @@ function updateDisplay(totalSecs) {
 }
 
 function startTimer() {
-    if (timerId === null) {
+    if (!isPaused && timerId === null) {
+        // Start fresh
         const hrs = parseInt(hrInput.value) || 0;
         const mins = parseInt(minInput.value) || 0;
         const secs = parseInt(secInput.value) || 0;
@@ -36,10 +37,12 @@ function startTimer() {
         
         runCountdown();
     } else if (isPaused) {
+        // Resume
         isPaused = false;
         startBtn.textContent = 'Pause';
         runCountdown();
     } else {
+        // Pause
         isPaused = true;
         clearInterval(timerId);
         timerId = null;
