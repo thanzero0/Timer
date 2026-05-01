@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalist Timer</title>
+    <title>Pomodoro Premium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500&display=swap" rel="stylesheet">
@@ -13,22 +13,13 @@
     <div class="glow"></div>
     
     <div class="container">
-        <div class="input-group" id="timer-inputs">
-            <div class="time-field">
-                <input type="number" id="hours" placeholder="00" min="0" max="99">
-                <span>h</span>
-            </div>
-            <div class="time-field">
-                <input type="number" id="minutes" placeholder="00" min="0" max="59">
-                <span>m</span>
-            </div>
-            <div class="time-field">
-                <input type="number" id="seconds" placeholder="00" min="0" max="59">
-                <span>s</span>
-            </div>
+        <div class="mode-buttons">
+            <button class="mode-btn active" data-time="1500">Focus</button>
+            <button class="mode-btn" data-time="300">Short Break</button>
+            <button class="mode-btn" data-time="900">Long Break</button>
         </div>
 
-        <div class="timer-display" id="display">00:00:00</div>
+        <div class="timer-display" id="display">25:00</div>
 
         <div class="controls">
             <button id="start-btn" class="primary">Start</button>
