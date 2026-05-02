@@ -113,14 +113,14 @@ body {
 .pomodoro-wrapper {
     text-align: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 4rem;
+    padding: 2.5rem 5rem;
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     background: var(--surface-color);
@@ -164,13 +164,14 @@ body {
 }
 
 .timer-display {
-    font-size: clamp(5rem, 20vw, 12rem);
-    font-weight: 100;
-    letter-spacing: -4px;
-    margin-bottom: 3rem;
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-weight: 200;
+    letter-spacing: -2px;
+    margin-bottom: 2.5rem;
     font-variant-numeric: tabular-nums;
     transition: var(--transition);
-    text-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
 }
 
 .controls {
@@ -179,7 +180,7 @@ body {
     justify-content: center;
 }
 
-button {
+.controls button {
     background: transparent;
     border: 1px solid var(--glass-border);
     color: var(--text-color);
@@ -194,20 +195,20 @@ button {
     backdrop-filter: blur(10px);
 }
 
-button:hover:not(.mode-btn) {
+.controls button:hover:not(.mode-btn) {
     background: var(--text-color);
     color: var(--bg-color);
     transform: translateY(-2px);
 }
 
-button.primary {
+.controls button.primary {
     background: var(--text-color);
     color: var(--bg-color);
     border-color: var(--text-color);
     box-shadow: 0 10px 20px rgba(255,255,255,0.05);
 }
 
-button.primary:hover {
+.controls button.primary:hover {
     box-shadow: 0 15px 30px rgba(255,255,255,0.1);
 }
 
