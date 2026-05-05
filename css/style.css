@@ -97,17 +97,19 @@ body {
 }
 
 .cursor-glow {
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--cursor-color) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  filter: blur(80px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--cursor-color) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: blur(100px) opacity(35%);
 }
 
 .pomodoro-wrapper {
@@ -237,29 +239,33 @@ body {
 .fab-group {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
 .fab-options {
     position: absolute;
+    left: 100%;
     bottom: 0;
     display: flex;
+    flex-direction: row;
     gap: 15px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
+    transform: translateX(-20px) scale(0.95);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     background: rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
     border-radius: 40px;
     backdrop-filter: blur(10px);
+    margin-left: 15px;
+    transform-origin: left center;
 }
 
 .fab-group.active .fab-options {
     opacity: 1;
     visibility: visible;
-    transform: translateY(-80px);
+    transform: translateX(0) scale(1);
 }
 
 .fab-btn {
